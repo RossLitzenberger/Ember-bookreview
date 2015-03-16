@@ -2,25 +2,35 @@ App = Ember.Application.create();
 
 App.Router.map(function() {
 	 this.resource('book', { path: '/books/:book_id'});
-   
-});
 
+});
 App.IndexRoute = Ember.Route.extend({
-    model: function() {
-			return this.store.findAll('book');
-		}
+  model: function() {
+    return Ember.RSVP.hash({
+      books: this.store.findAll('book'),
+      genres: this.store.findAll('genre')
+    });
+  },
+  setupController: function(controller, model) {
+    controller.set('books', model.books);
+    controller.set('genres', model.genres);
+  }
 });
-
 App.BookRoute = Ember.Route.extend({
   model: function(params){
     return this.store.find('book', params.book_id);
   }
-
 });
+
 App.ApplicationAdapter = DS.FixtureAdapter;
+
+App.IndexController = Ember.Controller.extend({});
 
 App.BooksController = Ember.ArrayController.extend({
   sortProperties: ['title']
+});
+App.GenresController = Ember.ArrayController.extend({
+  sortProperties: ['name']
 });
 
 App.BookDetailsComponent = Ember.Component.extend({
