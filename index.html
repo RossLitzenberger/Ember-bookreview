@@ -42,22 +42,23 @@
     {{book-details book=this tag='div' class='row'}}
   </div>
   </script>
-  <script type="text/x-handlebars" data-template-name="components/book-details">
-  <div class="col-sm-3">
-    <a {{bind-attr href='book.url'}}>
-      <img {{bind-attr src='book.image'}} ></img>
-    </a>
-    <p class="text-center rating">
-      <strong>{{book.rating}}</strong>
-      /5
-    </p>
-  </div>
-  <div class="col-sm-9">
-    {{#link-to 'book' books}}{{book.title}}{{/link-to}}
-    <p class="text-muted"> <em>Written by {{book.author}}</em></p>
-    <div>
-      <p>{{book.review}}</p>
-    </div>
+    <script type="text/x-handlebars" data-template-name="components/book-details">
+      <div class="col-sm-3">
+        <a {{bind-attr href='book.url'}}>
+          <img {{bind-attr src='book.image'}} ></img>
+        </a>
+        <p class="text-center rating">
+          <strong>{{book.rating}}</strong> /5
+        </p>
+      </div>
+      <div class="col-sm-9">
+        {{#link-to 'book' book}}{{book.title}}{{/link-to}}
+        <p class="text-muted"> <em>Written by {{book.author}}</em></p>
+        <div>
+          <p>{{book.review}}</p>
+        </div>
+        <span class="label label-primary">{{book.genre.name}}</span>
+      </div>
     </script>
     <script src="js/libs/jquery-1.10.2.js"></script>
     <script src="js/libs/handlebars-1.1.2.js"></script>
