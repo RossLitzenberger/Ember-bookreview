@@ -1,34 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Ember Starter Kit</title>
-
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <script type="text/x-handlebars" data-template-name="application">
+  <head>
+    <meta charset="utf-8">
+    <title>Ember Starter Kit</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <script type="text/x-handlebars" data-template-name="application">
     <div class="container">
       <h1>reading list</h1>
       {{outlet}}
     </div>
-
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="index">
-    <ul>
-    {{#each}}
-      <li class="row">{{titel}}</li>
-    {{/each}}
+    </script>
+    <script type="text/x-handlebars" data-template-name="index">
+    <ol class="breadcrumb">
+      <li>Books</li>
+      <li class='active'>New</li>
+    </ol>
+    <div class='row'>
+      <div class='col-sm-8'>
+        {{render 'books' this}}
+      </div>
+    </div>
+    </script>
+    <script type="text/x-handlebars" data-template-name="books">
+    <ul class="list-unstyled">
+      {{#each}}
+      {{book-details book=this tag='li' class='row'}}
+      {{else}}
+      <li>There are no books</li>
+      {{/each}}
     </ul>
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="book">
+    <ol class="breadcrumb">
+      <li>{{#link-to 'index'}}Books{{/link-to}}</li>
+      <li class='active'>{{title}}</li>
+    </ol>
+    {{book-details book=this tag='div' class='row'}}
+  </div>
   </script>
-
-  <script src="js/libs/jquery-1.10.2.js"></script>
-  <script src="js/libs/handlebars-1.1.2.js"></script>
-  <script src="js/libs/ember-1.4.0.js"></script>
-  <script src="js/libs/ember-data.js"></script>
-  <script src="js/app.js"></script>
-  <!-- to activate the test runner, add the "?test" query string parameter -->
-  <script src="tests/runner.js"></script>
-</body>
+  <script type="text/x-handlebars" data-template-name="components/book-details">
+  <div class="col-sm-3">
+    <a {{bind-attr href='book.url'}}>
+      <img {{bind-attr src='book.image'}} ></img>
+    </a>
+    <p class="text-center rating">
+      <strong>{{book.rating}}</strong>
+      /5
+    </p>
+  </div>
+  <div class="col-sm-9">
+    {{#link-to 'book' books}}{{book.title}}{{/link-to}}
+    <p class="text-muted"> <em>Written by {{book.author}}</em></p>
+    <div>
+      <p>{{book.review}}</p>
+    </div>
+    </script>
+    <script src="js/libs/jquery-1.10.2.js"></script>
+    <script src="js/libs/handlebars-1.1.2.js"></script>
+    <script src="js/libs/ember-1.4.0.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script src="js/app.js"></script>
+    <!-- to activate the test runner, add the "?test" query string parameter -->
+    <script src="tests/runner.js"></script>
+  </body>
 </html>

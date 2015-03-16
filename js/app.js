@@ -1,15 +1,33 @@
 App = Ember.Application.create();
 
 App.Router.map(function() {
-	 this.resource('book');
+	 this.resource('book', { path: '/books/:book_id'});
 });
 
 App.IndexRoute = Ember.Route.extend({
     model: function() {
-			return this.store.find('book', 1);
+			return this.store.findAll('book');
 		}
 });
+
+App.BookRoute = Ember.Route.extend({
+  model: function(params){
+    return this.store.find('book', params.book_id);
+  }
+
+});
 App.ApplicationAdapter = DS.FixtureAdapter;
+
+App.BooksController = Ember.ArrayController.extend({
+  sortProperties: ['title']
+});
+
+App.BookDetailsComponent = Ember.Component.extend({
+  classNameBindings: ['ratingClass'],
+  ratingClass: function() {
+    return "rating-" + this.get('book.rating');
+  }.property('book.rating')
+});
 
 App.Book = DS.Model.extend({
 	 title: DS.attr(),
@@ -18,7 +36,7 @@ App.Book = DS.Model.extend({
 	 rating: DS.attr('number'),
 	 amazon_id: DS.attr(),
 	 url: function(){
-	 	return "http://www.amazon.com/gp/product/"+this.get('amazon_id')+"/adamfortuna-20"
+	 	return "http://www.amazon.com/gp/product/"+this.get('amazon_id')
 	 }.property('amazon_id'),
 	 image:  function(){
 	 	return "http://images.amazon.com/images/P/"+this.get('amazon_id')+".01.ZTZZZZZZ.jpg"
@@ -34,6 +52,7 @@ App.Book.FIXTURES = [
     rating: 5,
     amazon_id: '0465046746',
     genre: 3
+    
   },
   {
     id: 2,
