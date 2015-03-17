@@ -1,7 +1,8 @@
 App = Ember.Application.create();
 
 App.Router.map(function() {
-	 this.resource('book', { path: '/books/:book_id'});
+   this.resource('book', { path: '/books/:book_id'}),
+	 this.resource('genre', { path: '/genres/:genre_id'});
 
 });
 App.IndexRoute = Ember.Route.extend({
@@ -57,7 +58,7 @@ App.Book = DS.Model.extend({
 
 App.Genre = DS.Model.extend({
   name: DS.attr(),
-  books: DS.hasMany('book')
+  books: DS.hasMany('book',{async: true})
 });
 
 App.Book.FIXTURES = [

@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    
     <script type="text/x-handlebars" data-template-name="application">
     <div class="container">
       <h1>reading list</h1>
       {{outlet}}
     </div>
     </script>
-
-   <script type="text/x-handlebars" data-template-name="index">
+    
+    <script type="text/x-handlebars" data-template-name="index">
     <ol class='breadcrumb'>
       <li class='active'>Books</li>
     </ol>
@@ -28,6 +29,7 @@
     </div>
     </script>
     
+    
     <script type="text/x-handlebars" data-template-name="books">
     <ul class="list-unstyled">
       {{#each}}
@@ -36,46 +38,55 @@
       <li>There are no books</li>
       {{/each}}
     </ul>
-
     </script>
     
-
+    
     <script type="text/x-handlebars" data-template-name="genres">
     
     <h2>Genres</h2>
     <ul class='list-unstyled'>
       {{#each}}
-      <li>{{name}}</li>
+      <li>{{#link-to 'genre' this class="label label-primary"}}{{name}}{{/link-to}}</li>
       {{/each}}
     </ul>
     
-    </script>    
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="genre">
+    <ol class="breadcrumb">
+      <li>{{#link-to 'index'}}Books{{/link-to}}</li>
+      <li class='active'>{{title}}</li>
+    </ol>
+    {{render 'books' books}}
+    </script>
+    
     <script type="text/x-handlebars" data-template-name="book">
     <ol class="breadcrumb">
       <li>{{#link-to 'index'}}Books{{/link-to}}</li>
       <li class='active'>{{title}}</li>
     </ol>
     {{book-details book=this tag='div' class='row'}}
-  </div>
-  </script>
-    <script type="text/x-handlebars" data-template-name="components/book-details">
-      <div class="col-sm-3">
-        <a {{bind-attr href='book.url'}}>
-          <img {{bind-attr src='book.image'}} ></img>
-        </a>
-        <p class="text-center rating">
-          <strong>{{book.rating}}</strong> /5
-        </p>
-      </div>
-      <div class="col-sm-9">
-        {{#link-to 'book' book}}{{book.title}}{{/link-to}}
-        <p class="text-muted"> <em>Written by {{book.author}}</em></p>
-        <div>
-          <p>{{book.review}}</p>
-        </div>
-        <span class="label label-primary">{{book.genre.name}}</span>
-      </div>
     </script>
+    
+    <script type="text/x-handlebars" data-template-name="components/book-details">
+    <div class="col-sm-3">
+      <a {{bind-attr href='book.url'}}>
+        <img {{bind-attr src='book.image'}} ></img>
+      </a>
+      <p class="text-center rating">
+        <strong>{{book.rating}}</strong> /5
+      </p>
+    </div>
+    <div class="col-sm-9">
+      {{#link-to 'book' book}}{{book.title}}{{/link-to}}
+      <p class="text-muted"> <em>Written by {{book.author}}</em></p>
+      <div>
+        <p>{{book.review}}</p>
+      </div>
+      <span>{{#link-to 'genre' book.genre class="label label-primary"}}{{book.genre.name}}{{/link-to}}</span>
+    </div>
+    </script>
+
     <script src="js/libs/jquery-1.10.2.js"></script>
     <script src="js/libs/handlebars-1.1.2.js"></script>
     <script src="js/libs/ember-1.4.0.js"></script>
