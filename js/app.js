@@ -117,7 +117,7 @@ App.Book.FIXTURES = [
     review: "Probably my favorite science fiction book (and series) I've ever read. Hyperion is written in a style similar to The Canterbury Tales, in which a series of stories are told by the main characters. Each story is a gem in itself, but alude to the larger storyline. The scope of the story is ambitious - spanning time, planets religion and love.",
     rating: 5,
     amazon_id: '0553283685',
-    genre: 202
+    genre: 201
   },
   {
     id: 3,
@@ -126,7 +126,7 @@ App.Book.FIXTURES = [
     review: "Even though I respect Ive, I felt this biography only hit skin deep. It went over all the major events in his life, his passion for design, awards he achieved -- but that's really it. I dont't feel I know him anymore than before reading this.",
     rating: 2,
     amazon_id: '159184617X',
-    genre: 201
+    genre: 203
   }
 ];
 
